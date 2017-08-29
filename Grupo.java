@@ -15,16 +15,63 @@ public class Grupo
         
     }
     
-    //Terminar este metodo de tarea
     
-    public void inscribir(Estudiante unEstudiante)
+   
+/**
+  * Busca un estudiante por medio de su clave
+  * @param claveEstudiante parametro que representa la clave del estudiante a buscar.
+  * @return Regresa la posicion del estudiante en el arreglo o -1 si no existe.
+  */
+    
+    private int buscarEstudiante(int claveEstudiante)
     {
-        
-        if(numInscritos<totalEs)
+        for(int i=0; i<estudiantes.length;i++)
         {
-            estudiantes[numInscritos]=unEstudiante;
-            numInscritos++;
+            if(estudiantes[i].dimeClave() == claveEstudiante)
+            {   
+                return i;
+            }
+                
         }
+        return -1;
+    }
+    //Terminar este metodo de tarea
+    /**
+     * Busca un espacio disponible para el estudiante en el arreglo.
+     * @return Regresa la primer posicion nula dentro del arreglo.
+     */
+    private int buscaEspacioDisponible()
+    {
+        for( int i=0; i < estudiantes.length;i++)
+        {
+            if(estudiantes[i] == null
+            {
+                    return i;
+             }
+        }  
+        return -1;
+    }
+    
+    /**
+     * Inscribe un alumno nuevo.
+     * @param unEstudiante Es el objeto estudiante a inscribir en el grupo
+     * @return Regresa verdadero si el estudiante fue inscrito o falso en caso de que
+     *          no se pudiera inscribir.
+     */
+    public boolean inscribir(Estudiante unEstudiante)
+    {
+        int existe = this.buscarEstudiante(unEstudiante.dimeClave());
+        if (existe != -1)
+        {
+            return false; // el estudiante ya esta incrito
+            
+        int posDisponible = this.buscaEspacioDisponible();
+            if(posDisponible ==-1)
+            {
+                return false; // el arreglo esta lleno
+            }
+            estudiantes[posDisponible]= unEstudiante; // inscribe al Estudiante
+            return true;
     }
     
    // public void darBaja(int claveBaja)
