@@ -1,22 +1,31 @@
+/** 
+ * La clase Grupo fue creada con la finalidad de que en base a ella se creara un arreglo
+ * el cual estara ocupado por distintos estudiantes los cuales desean pertenecer al grupo.
+ * En esta clase se declaran las variables de Nombre de la materia, y se declara el arreglo el
+ * cual guardara la informacion de los estudiantes a inscribirse.
+ * 
+ * El constructor inicializa las variables de instancia, este constructor recibira como parametros
+ * el cupo maximo de alumnos a inscribirse en el grupo, asi como tambien el nombre
+ * de la materia a la cual pernece el grupo.
+ * 
+ * Se utiliza this. para relacionar la varible nomMateria con la que fue declarada y pertenece ala clase
+ * , esta es diferente de la que se utiliza como parametro.
+ * 
+ * @param totalEstudiantes en esta varible se guardara el tamano del grupo.
+ * @param nomMateria en esta varible se guarda el nombre de la materia del Grupo.
+ */
+
 public class Grupo
 {
     private String nomMateria;
     private Estudiante[] estudiantes;
-    private int numInscritos;
-    private int totalEs;
-  
-    
+
     public Grupo(int totalEstudiantes,String nomMateria)
     {
-        estudiantes=new Estudiante[totalEstudiantes];
-        this.nomMateria=nomMateria;
-        numInscritos=0;
-        totalEs=totalEstudiantes;
-        
+        estudiantes=new Estudiante[totalEstudiantes]; //El objeto estudiantes es de tamano totalEstudiantes.
+        this.nomMateria=nomMateria;      
     }
     
-    
-   
 /**
   * Busca un estudiante por medio de su clave
   * @param claveEstudiante parametro que representa la clave del estudiante a buscar.
@@ -27,24 +36,27 @@ public class Grupo
     {
         for(int i=0; i<estudiantes.length;i++)
         {
-            if(estudiantes[i].dimeClave() == claveEstudiante)
-            {   
-                return i;
-            }
-                
+            if(estudiantes[i] != null)
+            {
+                 if(estudiantes[i].dimeClave() == claveEstudiante)
+                 {   
+                     return i;
+                 }
+            }   
         }
         return -1;
     }
-    //Terminar este metodo de tarea
+
     /**
      * Busca un espacio disponible para el estudiante en el arreglo.
-     * @return Regresa la primer posicion nula dentro del arreglo.
+     * @return Regresa la primera posicion nula dentro del arreglo.
+     * al regresar el valor de -1 indica que no hay ninguna posicion vacia.
      */
     private int buscaEspacioDisponible()
     {
         for( int i=0; i < estudiantes.length;i++)
         {
-            if(estudiantes[i] == null
+            if(estudiantes[i] == null)
             {
                     return i;
              }
@@ -64,7 +76,7 @@ public class Grupo
         if (existe != -1)
         {
             return false; // el estudiante ya esta incrito
-            
+        }
         int posDisponible = this.buscaEspacioDisponible();
             if(posDisponible ==-1)
             {
@@ -73,24 +85,24 @@ public class Grupo
             estudiantes[posDisponible]= unEstudiante; // inscribe al Estudiante
             return true;
     }
-    
-   // public void darBaja(int claveBaja)
-    
-   public void baja(int claveBaja)
+
+   /**
+    * Da de baja a un alumno, de acuerdo ala clave que ingrese el usuario.
+    * @param La clave del alumno que se desea dar de baja.
+    * en la posicion en la que se encuentre el alumno se registrara como null.
+    * @ return true si el alumno fue eliminado y caso contrario false si por alguna razon no se pudo
+    * eliminar
+    */ 
+   public boolean baja(int claveBaja)
    {
-       int i=0;
-       
-       if(claveBaja!=estudiantes[i].clave1)
-       {
-           i++;
-           
-        }
-        else
-           {
-           estudiantes[i]=null;
-           numInscritos=numInscritos-1;
-            }
-        }
-        //dar de baja un estudiante
-    // buscar el estudiante con la clave que te da & poner en null ese espacio  
+      
+          if(this.buscarEstudiante(claveBaja)!= -1)
+          {
+              estudiantes[this.buscarEstudiante(claveBaja)]= null;
+              return true;
+          }
+          else
+            return false;
+    }
 }
+  
