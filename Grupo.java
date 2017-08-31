@@ -13,6 +13,9 @@
  * 
  * @param totalEstudiantes en esta varible se guardara el tamano del grupo.
  * @param nomMateria en esta varible se guarda el nombre de la materia del Grupo.
+ * 
+ * @author Nancy Vazquez
+ * @version 08.30.17
  */
 
 public class Grupo
@@ -25,6 +28,30 @@ public class Grupo
         estudiantes=new Estudiante[totalEstudiantes]; //El objeto estudiantes es de tamano totalEstudiantes.
         this.nomMateria=nomMateria;      
     }
+    /**
+     * Busca estudiante por medio del nombre del estudiante.
+     * @param El  nombre del estudiante nomEstudiante.
+     * @return i que seria la posicion en la que se encuentra el estudiante con el nombre ingresado.
+     * @return -1 en caso de que el estudiante no se encuentre.
+     */
+    
+    private int buscarEstudiante(String nombreEstudiante)
+    {
+        for(int i=0; i<estudiantes.length;i++)
+        {
+            if(estudiantes[i]!= null)
+            {
+                if(estudiantes[i].dimeNombre() == nombreEstudiante)
+                {
+                    return i;
+                }
+            }
+            
+        }    
+        return -1;
+    }
+    
+    
     
 /**
   * Busca un estudiante por medio de su clave
@@ -77,6 +104,7 @@ public class Grupo
         {
             return false; // el estudiante ya esta incrito
         }
+       
         int posDisponible = this.buscaEspacioDisponible();
             if(posDisponible ==-1)
             {
@@ -102,6 +130,25 @@ public class Grupo
               return true;
           }
           else
+            return false;
+    } 
+    
+    /**
+     * Da de baja un alumno, de acuero al nombre que ingrese el usuario.
+     * @param El nombre del alumno que se dara de baja en la posicion en la que 
+     * se encuentre el alumno y se registrara como null.
+     * @return true si el alumno fue eliminado y caso contrario false
+     * si por alguna razon el alumno no se pudo eliminar.
+     * 
+     */
+    public boolean baja (String nombreEstudiante)
+    {
+        if(this.buscarEstudiante(nombreEstudiante)!=-1)
+        {
+            estudiantes[this.buscarEstudiante(nombreEstudiante)]=null;
+            return true;
+        }
+        else
             return false;
     }
 }
